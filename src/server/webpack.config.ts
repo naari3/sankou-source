@@ -19,9 +19,8 @@ const config = {
   },
   devtool: process.env.NODE_ENV === "production" ? "source-map" : "inline-source-map",
   output: {
-    filename: "app.js",
+    filename: "[name].app.js",
     path: path.resolve(__dirname, "..", "..", "dist"),
-    publicPath: "/",
   },
   plugins: [
     new HTMLWebpackPlugin({
