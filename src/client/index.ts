@@ -11,6 +11,8 @@ import {
   SpriteState,
 } from "./components";
 import { EngineSystem, MovableSystem, RendererSystem, ResourceLoaderSystem, SpriteSystem } from "./systems";
+import Itakura from "../../public/itakura.png";
+import Afro from "../../public/afro.png";
 
 const world = new World();
 world
@@ -43,8 +45,8 @@ world.createEntity().addComponent(Engine, {
 console.log("world created");
 
 [
-  { name: "afro", url: "afro.png" },
-  { name: "itakura", url: "itakura.png" },
+  { name: "afro", url: Afro },
+  { name: "itakura", url: Itakura },
 ].forEach((resource) => {
   world.createEntity().addComponent(Resource, resource);
 });
