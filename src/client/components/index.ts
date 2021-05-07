@@ -5,5 +5,6 @@ import { Shape } from "./Shape";
 import { Engine } from "./Engine";
 import { Sprite, SpriteState } from "./Sprite";
 import { Resource, ResourceState } from "./Resource";
+import { Lifetime } from "./Lifetime";
 
-export { Position, Velocity, Renderable, Shape, Engine, Sprite, SpriteState, Resource, ResourceState };
+export { Position, Velocity, Renderable, Shape, Engine, Sprite, SpriteState, Resource, ResourceState, Lifetime };

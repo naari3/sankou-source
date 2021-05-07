@@ -9,8 +9,16 @@ import {
   Velocity,
   Sprite,
   SpriteState,
+  Lifetime,
 } from "./components";
-import { EngineSystem, MovableSystem, RendererSystem, ResourceLoaderSystem, SpriteSystem } from "./systems";
+import {
+  EngineSystem,
+  LifetimeSystem,
+  MovableSystem,
+  RendererSystem,
+  ResourceLoaderSystem,
+  SpriteSystem,
+} from "./systems";
 import Itakura from "../../public/itakura.png";
 import Afro from "../../public/afro.png";
 
@@ -30,11 +38,13 @@ world
   .registerComponent(ResourceState)
   .registerComponent(Sprite)
   .registerComponent(SpriteState)
+  .registerComponent(Lifetime)
   .registerSystem(MovableSystem)
   .registerSystem(RendererSystem)
   .registerSystem(EngineSystem)
   .registerSystem(ResourceLoaderSystem)
-  .registerSystem(SpriteSystem);
+  .registerSystem(SpriteSystem)
+  .registerSystem(LifetimeSystem);
 
 const config = {
   width: window.innerWidth,
@@ -84,13 +94,15 @@ for (let i = 0; i < getSettings("c", 100); i++) {
     .addComponent(Velocity, getRandomVelocity())
     .addComponent(Shape, getRandomShape())
     .addComponent(Position, getRandomPosition())
-    .addComponent(Sprite, { name: shape.primitive });
+    .addComponent(Sprite, { name: shape.primitive })
+    .addComponent(Lifetime, { time: 0 });
 }
 
-const prevTime = performance.now();
+let prevTime = performance.now();
 
 function update(time: number) {
   const dt = time - prevTime;
+  prevTime = time;
 
   world.execute(dt, time);
 

@@ -1,16 +1,17 @@
 import { System } from "ecsy";
-import { Velocity, Position, SpriteState } from "../components";
+import { Velocity, Position, SpriteState, Lifetime } from "../components";
 
 class MovableSystem extends System {
   execute(delta: number, time: number): void {
     this.queries.moving.results.forEach((entity) => {
       let spriteState = entity.getComponent(SpriteState);
+      let lifetime = entity.getComponent(Lifetime);
       let velocity = entity.getMutableComponent(Velocity);
       let position = entity.getMutableComponent(Position);
       let sprite = spriteState?.ref;
-      if (position && velocity && sprite) {
-        position.x += velocity.x * delta;
-        position.y += velocity.y * delta;
+      if (position && velocity && sprite && lifetime) {
+        position.x += velocity.x * lifetime.time;
+        position.y += velocity.y * lifetime.time;
 
         if (position.x > window.innerWidth + sprite.width) position.x = -sprite.width;
         if (position.x < -sprite.width) position.x = window.innerWidth;
@@ -23,7 +24,7 @@ class MovableSystem extends System {
 
 MovableSystem.queries = {
   moving: {
-    components: [Velocity, Position, SpriteState],
+    components: [Velocity, Position, Lifetime, SpriteState],
   },
 };
 
