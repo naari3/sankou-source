@@ -14,6 +14,11 @@ import { EngineSystem, MovableSystem, RendererSystem, ResourceLoaderSystem, Spri
 import Itakura from "../../public/itakura.png";
 import Afro from "../../public/afro.png";
 
+function getSettings(path: string, defualt: number): number {
+  let s = new URLSearchParams(location.search);
+  return parseFloat(s.get(path) || "") || defualt;
+}
+
 const world = new World();
 world
   .registerComponent(Position)
@@ -51,10 +56,11 @@ console.log("world created");
   world.createEntity().addComponent(Resource, resource);
 });
 
+const speed = getSettings("s", 0.03);
 function getRandomVelocity() {
   return {
-    x: 0.001 * (2 * Math.random() - 1),
-    y: 0.001 * (2 * Math.random() - 1),
+    x: speed * (2 * Math.random() - 1) + 0.000001,
+    y: speed * (2 * Math.random() - 1) + 0.000001,
   };
 }
 
@@ -71,7 +77,7 @@ function getRandomShape() {
   };
 }
 
-for (let i = 0; i < 10000; i++) {
+for (let i = 0; i < getSettings("c", 100); i++) {
   let shape = getRandomShape();
   world
     .createEntity()

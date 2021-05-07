@@ -10,7 +10,8 @@ class SpriteSystem extends System {
       let position = entity.getComponent(Position);
       let sheet = app?.loader.resources[spriteInfo?.name || ""];
       let sprite = new PIXISprite(sheet?.texture);
-      sprite.scale.x = sprite.scale.y = 0.2;
+
+      sprite.scale.x = sprite.scale.y = 0.1 + Math.random() * 0.1;
       if (sprite && position) {
         sprite.x = position?.x;
         sprite.y = position?.y;
